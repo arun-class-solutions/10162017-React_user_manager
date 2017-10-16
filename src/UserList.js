@@ -108,7 +108,7 @@ class UserList extends Component {
             					{user.email}
             				</td>
             				<td>
-            					<a href="#" className="btn btn-primary">Edit</a>
+                      <a href={`/edit/${user.id}`} className="btn btn-primary">Edit</a>
             				</td>
             			</tr>
                 );
