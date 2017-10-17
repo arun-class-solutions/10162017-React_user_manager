@@ -1,40 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import update from "immutability-helper";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as userActions from "./actions/users";
 
 class UserList extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      users: [],
-      newUser: {
-        firstname: "",
-        lastname: "",
-        username: "",
-        email: ""
-      }
-    }
-  }
-
   componentDidMount() {
-    axios.request({
-      method: "GET",
-      url: "http://myapi-profstream.herokuapp.com/api/ab1ed4/persons"
-    })
-    .then((response) => {
-      const userData = response.data;
-
-      // Step 1: Set users to the state
-      // Step 2: Map over users and render them to the DOM
-
-      this.setState({
-        users: userData
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    this.props.userActions.getUsers();
   }
 
   handleChange(event) {
@@ -92,7 +65,7 @@ class UserList extends Component {
         		</thead>
 
         		<tbody>
-              {this.state.users.map((user, index) => {
+              {this.props.users.users.map((user, index) => {
                 return (
             			<tr key={index}>
             				<td>
@@ -164,4 +137,16 @@ class UserList extends Component {
   }
 }
 
-export default UserList;
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userActions: bindActionCreators(userActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
