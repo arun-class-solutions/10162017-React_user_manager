@@ -1,5 +1,11 @@
 const initialState = {
   users: [],
+  oneUser: {
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: ""
+  },
   newUser: {
     firstname: "",
     lastname: "",
@@ -13,6 +19,12 @@ export default (state = initialState, action) => {
     case ("USERS_FETCH_SUCCESS"): {
       return Object.assign({}, state, {
         users: action.payload
+      });
+    }
+
+    case ("GET_ONE_USER_SUCCESS"): {
+      return Object.assign({}, state, {
+        oneUser: action.payload
       });
     }
 
