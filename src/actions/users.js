@@ -1,10 +1,10 @@
-import axios from "axios";
+import axiosConfig from "../config/axios";
 
 export const getUsers = () => {
   return (dispatch) => {
-    return axios.request({
+    return axiosConfig.request({
       method: "GET",
-      url: "http://myapi-profstream.herokuapp.com/api/ab1ed4/persons"
+      url: "/persons"
     })
     .then((response) => {
       const userData = response.data;
@@ -22,9 +22,9 @@ export const getUsers = () => {
 
 export const getOneUser = (id) => {
   return (dispatch) => {
-    return axios.request({
+    return axiosConfig.request({
       method: "GET",
-      url: "http://myapi-profstream.herokuapp.com/api/ab1ed4/persons/" + id
+      url: "/persons/" + id
     })
     .then((response) => {
       dispatch({
